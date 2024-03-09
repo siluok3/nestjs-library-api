@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -13,14 +14,15 @@ import { BookService } from './book.service';
 import { Book } from './schemas/book.schema';
 import { CreateBookDto } from './dto/CreateBook.dto';
 import { UpdateBookDto } from './dto/UpdateBookDto';
+import { GetAllBooksQuery } from './queries/GetAllBooks.query';
 
 @Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Get()
-  async getAllBooks(): Promise<Book[]> {
-    return this.bookService.findAll();
+  async getAllBooks(@Query() query: GetAllBooksQuery): Promise<Book[]> {
+    return this.bookService.findAll(query);
   }
 
   @Get(':id')
