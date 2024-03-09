@@ -1,4 +1,10 @@
-import { IsEnum, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 import { Category } from '../schemas/book.schema';
 
 export class CreateBookDto {

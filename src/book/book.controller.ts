@@ -7,16 +7,17 @@ import {
   Patch,
   Post,
   Query,
-  UsePipes,
-  ValidationPipe,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { Book } from './schemas/book.schema';
 import { CreateBookDto } from './dto/CreateBook.dto';
 import { UpdateBookDto } from './dto/UpdateBookDto';
 import { GetAllBooksQuery } from './queries/GetAllBooks.query';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller('book')
+@Controller('books')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
@@ -31,13 +32,15 @@ export class BookController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe())
-  async createBook(@Body() createBookDto: CreateBookDto): Promise<Book> {
-    return this.bookService.createBook(createBookDto);
+  @UseGuards(AuthGuard())
+  async createBook(
+    @Body() createBookDto: CreateBookDto,
+    @Req() req,
+  ): Promise<Book> {
+    return this.bookService.createBook(createBookDto, req.user);
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe())
   async updateBook(
     @Param('id') id: string,
     @Body() updateBookDto: UpdateBookDto,

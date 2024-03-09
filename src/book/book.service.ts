@@ -9,6 +9,7 @@ import mongoose, { Model } from 'mongoose';
 import { CreateBookDto } from './dto/CreateBook.dto';
 import { UpdateBookDto } from './dto/UpdateBookDto';
 import { GetAllBooksQuery } from './queries/GetAllBooks.query';
+import { User } from 'src/auth/schemas/User.schema';
 
 const RESULT_PER_PAGE = 2;
 
@@ -52,8 +53,10 @@ export class BookService {
     return book;
   }
 
-  async createBook(createBookDto: CreateBookDto): Promise<Book> {
-    return this.bookModel.create(createBookDto);
+  async createBook(createBookDto: CreateBookDto, user: User): Promise<Book> {
+    const data = Object.assign(createBookDto, { user: user._id });
+
+    return this.bookModel.create(data);
   }
 
   async updateBook(id: string, updateBookDto: UpdateBookDto): Promise<Book> {
