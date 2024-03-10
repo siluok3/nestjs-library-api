@@ -111,28 +111,28 @@ describe('Book Service', () => {
     });
   });
 
-  // describe('createBooks', () => {
-  //   it('should create and return a book', async () => {
-  //     const newBook = {
-  //       title: 'title',
-  //       description: 'desc',
-  //       author: 'author',
-  //       price: 10,
-  //       category: Category.CLASSICS,
-  //     };
+  describe('createBooks', () => {
+    it('should create and return a book', async () => {
+      const newBook = {
+        title: 'title',
+        description: 'desc',
+        author: 'author',
+        price: 10,
+        category: Category.CLASSICS,
+      };
 
-  //     jest
-  //       .spyOn(model, 'create')
-  //       .mockImplementationOnce(() => Promise.resolve(mockedBook));
+      jest
+        .spyOn(model, 'create')
+        .mockImplementationOnce(() => Promise.resolve(mockedBook) as any);
 
-  //     const result = await bookService.createBook(
-  //       newBook as CreateBookDto,
-  //       mockedUser as User,
-  //     );
+      const result = await bookService.createBook(
+        newBook as CreateBookDto,
+        mockedUser as User,
+      );
 
-  //     expect(result).toEqual(mockedBook);
-  //   });
-  // });
+      expect(result).toEqual(mockedBook);
+    });
+  });
 
   describe('updateBook', () => {
     it('should update and return a book', async () => {
