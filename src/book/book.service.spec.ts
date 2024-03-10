@@ -6,7 +6,6 @@ import mongoose, { Model } from 'mongoose';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CreateBookDto } from './dto/CreateBook.dto';
 import { User } from '../auth/schemas/User.schema';
-import { title } from 'process';
 import { UpdateBookDto } from './dto/UpdateBookDto';
 
 describe('Book Service', () => {
